@@ -6,6 +6,8 @@ This repository contains a demonstrator of an autoware agent ready to be execute
 
 **The carla autoware integration requires CARLA 0.9.11. You can download it from [here](https://github.com/carla-simulator/carla/releases/tag/0.9.11)**
 
+
+
 ## CARLA autoware agent
 The autoware agent is provided as a ROS package. All the configuration can be found inside the `carla-autoware-agent` folder.
 
@@ -17,13 +19,34 @@ The easiest way to run the agent is by building and running the provided docker 
 
 - Docker (19.03+)
 - Nvidia docker (https://github.com/NVIDIA/nvidia-docker)
-
+- Carla (0.9.11)
+- Cuda (10.2)
+  
 ### Setup
 
-Firstly clone the carla autoware repository, where additional [autoware contents](https://bitbucket.org/carla-simulator/autoware-contents.git) are included as a submodule:
+Firstly download Carla simulator (version 0.9.11 release)[https://github.com/carla-simulator/carla/releases/tag/0.9.11].
+
+Then Setup environment variables for Carla.
+
+```
+export CARLA_ROOT=/path/to/your/carla/installation
+export PYTHONPATH=$PYTHONPATH:${CARLA_ROOT}/PythonAPI/carla
+export PYTHONPATH=$PYTHONPATH:${CARLA_ROOT}/PythonAPI/carla/agents
+export PYTHONPATH=$PYTHONPATH:${CARLA_ROOT}/PythonAPI/carla/dist/carla-0.9.11-py3.7-linux-x86_64.egg
+```
+
+install git-lfs
+```
+curl -s https://packagecloud.io/install/repositories/github/git-lfs/script.deb.sh | sudo bash
+sudo apt-get install git-lfs
+git lfs install
+```
+
+
+clone the carla autoware repository, where additional [autoware contents](https://bitbucket.org/carla-simulator/autoware-contents.git) are included as a submodule:
 
 ```sh
-git clone --recurse-submodules https://github.com/carla-simulator/carla-autoware
+git lfs clone --recurse-submodules https://github.com/casper-auto/carla-autoware.git
 ```
 
 Afterwards, build the image with the following command:
@@ -53,6 +76,11 @@ This will start an interactive shell inside the container. To start the agent ru
 ```sh
 roslaunch carla_autoware_agent carla_autoware_agent.launch town:=Town01
 ```
+
+notes：
+
+The not subscribed topics may not be an issue. Try to give the ego car a goal in Rviz (just click goal in navi bar then click anywhere on the map) and see if it moves.
+
 
 ## CARLA Autoware contents
 The [autoware-contents](https://bitbucket.org/carla-simulator/autoware-contents.git) repository contains additional data required to run Autoware with CARLA, including the point cloud maps, vector maps and configuration files.
