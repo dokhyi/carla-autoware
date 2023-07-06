@@ -38,13 +38,14 @@ USER root
 RUN rm -f /etc/apt/sources.list.d/ros1-latest.list
 RUN apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-key 4B63CF8FDE49746E98FA01DDAD19BAB3CBF125EA
 RUN sh -c 'echo "deb http://snapshots.ros.org/melodic/2020-08-07/ubuntu $(lsb_release -sc) main" >> /etc/apt/sources.list.d/ros-snapshots.list'
+RUN apt-key adv --fetch-keys https://developer.download.nvidia.com/compute/cuda/repos/ubuntu1804/x86_64/3bf863cc.pub 32
 RUN apt-get update && apt-get install -y --no-install-recommends \
         python-pip \
         python-wheel \
         ros-melodic-ackermann-msgs \
         ros-melodic-derived-object-msgs \
     && rm -rf /var/lib/apt/lists/*
-RUN pip install transforms3d simple-pid pygame networkx==2.2
+RUN pip install transforms3d==0.3.1 simple-pid pygame networkx==2.2
 
 USER autoware
 

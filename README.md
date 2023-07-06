@@ -77,9 +77,10 @@ This will start an interactive shell inside the container. To start the agent ru
 roslaunch carla_autoware_agent carla_autoware_agent.launch town:=Town01
 ```
 
-notes：
+### notes：
 
-The not subscribed topics may not be an issue. Try to give the ego car a goal in Rviz (just click goal in navi bar then click anywhere on the map) and see if it moves.
+1、The not subscribed topics may not be an issue. Try to give the ego car a goal in Rviz (just click goal in navi bar then click anywhere on the map) and see if it moves.
+2、Step 12 may encounter a keyring GMG error, while step 21 encounters a 443 error when cloning carla Ros Bridge. This can be resolved by connecting to a mobile hotspot.
 
 
 ## CARLA Autoware contents
